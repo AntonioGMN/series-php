@@ -20,7 +20,7 @@ Route::get('/', function () {
 
 
 //Usa nomencatura padrão do laravel para rotas para fazer definir as rotas:
-Route::resource('/series', SeriesController::class)->only(['index', 'create', 'store', 'destroy']);
+Route::resource('/series', SeriesController::class)->except('show');
 
 
 //Essa rota esta sendo feita no resource usando o padrão pre-determinado do laravel que usa a seguinte regra para passagem de paramentros: o resource usa a singular da primera parte da sua rota (nesse caso 'series') como parametro, ou seja, o resource esta fazendo a rota: /series/{series} (o singular de series no ingles é series)
