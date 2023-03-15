@@ -9,27 +9,37 @@ use Illuminate\Support\Facades\DB;
 
 class SeriesController extends Controller
 {
-    public function index(Request $request, Response $response)
+    public function index()
     {
         $series = Serie::all();
         //dd($series);
         //compact('series')= ["series"=> $series]
 
-        return view('Series.index')->with('series', $series);
+        return view('series.index')->with('series', $series);
     }
 
-    public function create(Request $request, Response $response)
+    public function create()
     {
-        return view('Series.create');
+        return view('series.create');
     }
 
     public function store(Request $request)
     {
-        $name = $request->input('name');
-        $serie = new Serie();
-        $serie->name = $name;
-        $serie->save();
+        // dd($request->all());
+        Serie::create($request->all()); // tem que adicionar o $fillable = ['name'] no Series Model para funcionar
 
-        return redirect('/series');
+        // $name = $request->input('name');
+        // $serie = new Serie();
+        // $serie->name = $name;
+        // $serie->save();
+
+        return redirect()->route('series.index');
+    }
+
+    public function destroy(Request $request)
+    {
+        //dd($request->id);
+        Serie::destroy($request->series);
+        return redirect()->route('series.index');
     }
 }
